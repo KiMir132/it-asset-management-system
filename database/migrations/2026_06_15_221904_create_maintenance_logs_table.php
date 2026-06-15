@@ -14,6 +14,22 @@ return new class extends Migration
         Schema::create('maintenance_logs', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->foreignId('asset_id')
+                ->constrained('assets')
+                ->onDelete('cascade');
+
+            $table->text('issue_description');
+
+            $table->enum('status', [
+                'open',
+                'in_progress',
+                'resolved'
+            ])->default('open');
+
+            $table->dateTime('reported_at')->nullable();
+            $table->dateTime('resolved_at')->nullable();
+
+            $table->text('notes')->nullable();
         });
     }
 

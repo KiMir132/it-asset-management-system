@@ -14,6 +14,20 @@ return new class extends Migration
         Schema::create('assets', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+
+            $table->string('name');
+            $table->string('type');
+            $table->string('brand')->nullable();
+            $table->string('model')->nullable();
+            $table->enum('status', [
+                'in_stock',
+                'assigned',
+                'repair',
+                'retired'
+            ])->default('in_stock');
+
+            $table->string('location')->nullable();
+            $table->date('purchase_date')->nullable();
         });
     }
 

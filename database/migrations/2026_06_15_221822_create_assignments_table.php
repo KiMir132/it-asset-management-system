@@ -14,6 +14,19 @@ return new class extends Migration
         Schema::create('assignments', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+
+            $table->foreignId('asset_id')
+                ->constrained('assets')
+                ->onDelete('cascade');
+
+            $table->foreignId('user_id')
+                ->constrained('users')
+                ->onDelete('cascade');
+
+            $table->dateTime('assigned_at');
+            $table->dateTime('returned_at')->nullable();
+
+            $table->text('notes')->nullable();
         });
     }
 
